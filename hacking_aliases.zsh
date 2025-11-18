@@ -113,7 +113,7 @@ www() {
 
 # Servidor HTTP en puerto no privilegiado (8000 por defecto)
 serve() {
-    local port="${1:-8000}"
+    local port="${1:-8080}"
     echo "[+] Sirviendo directorio actual en puerto $port"
     python3 -m http.server "$port"
 }
@@ -134,7 +134,7 @@ smb-server() {
 alias listen='rlwrap -cAr nc -nlvp'
 
 # Listener simple sin rlwrap (fallback si no está instalado)
-alias listen-simple='nc -nlvp'
+alias listen='nc -nlvp'
 
 # Generador rápido de Reverse Shell Bash (Base64 para evitar badchars)
 gen-rev() {
