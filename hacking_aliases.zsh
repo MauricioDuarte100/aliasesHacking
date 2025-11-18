@@ -100,6 +100,15 @@ nscan-quick() {
     nmap -T4 -F -sV -oN nmap/quick "$RHOST"
 }
 
+# Extrae puertos open de un fichero .nmap en formato lista (80,443,8080)
+ports() {
+    local file="${1:-nmap/initial.nmap}"
+    [ ! -f "$file" ] && echo "Archivo no encontrado: $file" && return 1
+    grep -oP '\d{1,5}/open' "$file" | awk -F/ '{print $1}' | tr '\n' ',' | sed 's/,$//' | xclip -sel clip 2>/dev/null
+    echo "[+] Puertos copiados al clipboard."
+    grep -oP '\d{1,5}/open' "$file" | awk -F/ '{print $1}' | tr '\n' ',' | sed 's/,$//'
+    echo ""
+}
 # ==============================================================================
 # --- Servidores y Transferencia de Archivos ---
 # ==============================================================================
@@ -126,15 +135,17 @@ smb-server() {
 }
 
 # ==============================================================================
-# --- Reverse Shells y Listeners (Mejorados) ---
+# --- Reverse Shells y Listeners (Corregido) ---
 # ==============================================================================
 
-# Listener mejorado con rlwrap (instalar: sudo apt install rlwrap)
-# rlwrap proporciona historial, navegación con flechas y edición de línea
-alias listen='rlwrap -cAr nc -nlvp'
-
-# Listener simple sin rlwrap (fallback si no está instalado)
-alias listen='nc -nlvp'
+# Detección inteligente de rlwrap
+if command -v rlwrap >/dev/null 2>&1; then
+    alias listen='rlwrap -cAr nc -nlvp'
+    # echo "[+] rlwrap detectado: Listener mejorado activado" # Descomentar para debug
+else
+    alias listen='nc -nlvp'
+    # echo "[-] rlwrap no encontrado: Usando netcat estándar" # Descomentar para debug
+fi
 
 # Generador rápido de Reverse Shell Bash (Base64 para evitar badchars)
 gen-rev() {
@@ -203,12 +214,16 @@ fuzz-dir() {
     ffuf -u "$1/FUZZ" -w "$wordlist" -e .php,.txt,.html,.bak,.old -c -t 200
 }
 
-# Fuzzing de Subdominios (VHOST)
+# Sugerencia de mejora para mayor robustez:
 fuzz-vhost() {
     [ -z "$1" ] && echo "Uso: fuzz-vhost <URL> (ej: http://site.htb)" && return 1
     local wordlist="${2:-$SECLISTS/Discovery/DNS/subdomains-top1million-110000.txt}"
-    echo "[*] Buscando vhosts en $1"
-    ffuf -u "$1" -H "Host: FUZZ.$(echo $1 | sed 's|http://||' | sed 's|https://||' | cut -d'/' -f1)" -w "$wordlist" -mc 200 -fs 0 -c
+    
+    # Extraer dominio limpio quitando protocolo y puerto
+    local domain=$(echo "$1" | awk -F/ '{print $3}' | cut -d: -f1)
+    
+    echo "[*] Buscando vhosts para dominio base: $domain"
+    ffuf -u "$1" -H "Host: FUZZ.$domain" -w "$wordlist" -mc 200 -fs 0 -c
 }
 
 # Fuzzing de parámetros
