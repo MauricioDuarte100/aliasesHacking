@@ -323,3 +323,22 @@ vpn() {
     sudo openvpn "$@"
 }
 alias hosts='sudo nano /etc/hosts'
+
+# -- Rustscan --
+alias rs-full='rustscan -a' # Usage: rs-full <TARGET> -- -sC -sV
+
+# -- Advanced Web Fuzzing (simplified) --
+# Usage: ffuf-dir <URL> [WORDLIST]
+ffuf-dir() {
+    URL=$1
+    WORDLIST=${2:-/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt}
+    ffuf -u $URL/FUZZ -w $WORDLIST -c
+}
+
+# Usage: ffuf-vhost <URL> <HOST_HEADER> [WORDLIST]
+ffuf-vhost() {
+    URL=$1
+    HOST=$2
+    WORDLIST=${3:-/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt}
+    ffuf -u $URL -H "Host: FUZZ.$HOST" -w $WORDLIST -c
+}

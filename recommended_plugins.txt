@@ -1,0 +1,58 @@
+# Recommended Zsh Plugins for Productivity and Pentesting
+
+This file contains a list of recommended Zsh plugins to enhance your productivity and streamline your pentesting workflow.
+
+## Installation
+
+Most of these plugins can be installed using a Zsh plugin manager like [Oh My Zsh](https://ohmyz.sh/), [Zgen](https://github.com/tarjoilija/zgen), or [Antigen](https://github.com/zsh-users/antigen).
+
+To install a plugin with Oh My Zsh, you typically clone the plugin's repository into the `~/.oh-my-zsh/custom/plugins` directory and then add the plugin's name to the `plugins` array in your `.zshrc` file.
+
+Example:
+```
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+```
+
+---
+
+## Productivity Plugins
+
+### 1. zsh-autosuggestions
+- **Description:** Suggests commands as you type based on your history and completions.
+- **Repository:** [https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+
+### 2. zsh-syntax-highlighting
+- **Description:** Provides syntax highlighting for commands in the shell, making it easier to spot errors.
+- **Repository:** [https://github.com/zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+### 3. fzf
+- **Description:** A command-line fuzzy finder that can be used for history search, file finding, and more.
+- **Repository:** [https://github.com/junegunn/fzf](https://github.com/junegunn/fzf)
+
+### 4. autojump
+- **Description:** A faster way to navigate your filesystem. It learns your most used directories and allows you to jump to them with a short command.
+- **Repository:** [https://github.com/wting/autojump](https://github.com/wting/autojump)
+
+### 5. history-substring-search
+- **Description:** Allows you to search your command history by typing a substring of the command.
+- **Repository:** [https://github.com/zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
+
+### 6. thefuck
+- **Description:** Corrects errors in your previous console commands.
+- **Repository:** [https://github.com/nvbn/thefuck](https://github.com/nvbn/thefuck)
+
+---
+
+## Pentesting Plugins
+
+### 1. zsh-pentest
+- **Description:** A collection of aliases and functions for penetration testing.
+- **Repository:** [https://github.com/jhwohlgemuth/zsh-pentest](https://github.com/jhwohlgemuth/zsh-pentest)
+
+### 2. nmap
+- **Description:** Adds aliases for common nmap scans.
+- **Repository:** (Included with Oh My Zsh)
+
+### 3. zsh-hacker
+- **Description:** A set of functions and tools for hackers.
+- **Repository:** [https://github.com/yeykoyeyko/zsh-hacker](https://github.com/yeykoyeyko/zsh-hacker)
