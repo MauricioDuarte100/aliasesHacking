@@ -1,0 +1,14 @@
+# Ignore nmap output directory
+nmap/
+
+# Ignore common temporary files
+*.log
+*.swp
+*~
+.DS_Store
+
+# Ignore other tool outputs if any
+web_enum.txt
+nmap_output.txt
+temp_hash.txt
+data/
