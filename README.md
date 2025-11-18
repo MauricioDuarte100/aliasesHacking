@@ -387,4 +387,4 @@ This configuration is provided as-is for authorized security testing and educati
 
 ---
 
-*Last Updated: 2024*
+*Last Updated: 2025*
